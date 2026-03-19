@@ -181,7 +181,8 @@ footer { padding: 52px 48px 36px; border-top: 1px solid #161616; display: flex; 
 /* ── MOBILE ── */
 @media (max-width: 900px) {
   nav { padding: 18px 20px; } .nav-links { display: none; }
-  #hero { padding: 0 20px 60px; }
+  #hero { padding: 0 20px 80px; }
+  .scroll-cue { display: none; }
   .hero-bottom { flex-direction: column; align-items: flex-start; gap: 36px; }
   .hero-stats { gap: 32px; }
   #about { grid-template-columns: 1fr; padding: 80px 20px; gap: 48px; }
@@ -202,7 +203,16 @@ footer { padding: 52px 48px 36px; border-top: 1px solid #161616; display: flex; 
   .cta-form-group input, .cta-form-group select, .cta-form-group textarea { background: rgba(255,255,255,0.04); border: 1px solid #242424; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.88rem; padding: 11px 14px; outline: none; transition: border-color 0.2s; width: 100%; box-sizing: border-box; }
   .cta-form-group input::placeholder, .cta-form-group textarea::placeholder { color: #444; }
   .cta-form-group input:focus, .cta-form-group select:focus, .cta-form-group textarea:focus { border-color: var(--blue); }
-  .cta-form-group select { color: #f5f2ee; }
+  .cta-form-group select {
+    color: #f5f2ee;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
   .cta-form-group select option { background: #111; color: #f5f2ee; }
   .cta-form-group textarea { resize: vertical; min-height: 90px; }
   .cta-form-submit { display: inline-flex; align-items: center; gap: 12px; background: var(--blue); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 18px 44px; border: none; cursor: pointer; transition: transform 0.2s, background 0.2s; width: 100%; justify-content: center; margin-top: 6px; }
@@ -461,7 +471,7 @@ footer { padding: 52px 48px 36px; border-top: 1px solid #161616; display: flex; 
       const data = new FormData(this);
       data.append('_subject', 'New Discovery Call Request – The Lees Media');
       try {
-        const res = await fetch('https://formsubmit.co/ajax/hello@theleesmedia.com', {
+        const res = await fetch('https://formsubmit.co/ajax/gavin.lee@theleesmedia.com', {
           method: 'POST', headers: { 'Accept': 'application/json' }, body: data
         });
         const json = await res.json();
