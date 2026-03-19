@@ -471,7 +471,7 @@ footer { padding: 52px 48px 36px; border-top: 1px solid #161616; display: flex; 
       const data = new FormData(this);
       data.append('_subject', 'New Discovery Call Request – The Lees Media');
       try {
-        const res = await fetch('https://formsubmit.co/ajax/gavin.lee@theleesmedia.com', {
+        const res = await fetch('https://formsubmit.co/ajax/3d6e21d74712a6047b69ba5e2aff79d9', {
           method: 'POST', headers: { 'Accept': 'application/json' }, body: data
         });
         const json = await res.json();
