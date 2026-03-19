@@ -193,6 +193,24 @@ footer { padding: 52px 48px 36px; border-top: 1px solid #161616; display: flex; 
   #cta { padding: 100px 20px; }
   footer { flex-direction: column; gap: 20px; text-align: center; padding: 36px 20px; } .footer-links { flex-wrap: wrap; justify-content: center; }
 }
+
+  /* ── Contact Form ── */
+  .cta-form { max-width: 500px; margin: 0 auto; position: relative; z-index: 1; }
+  .cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .cta-form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+  .cta-form-group label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: #666; }
+  .cta-form-group input, .cta-form-group select, .cta-form-group textarea { background: rgba(255,255,255,0.04); border: 1px solid #242424; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.88rem; padding: 11px 14px; outline: none; transition: border-color 0.2s; width: 100%; box-sizing: border-box; }
+  .cta-form-group input::placeholder, .cta-form-group textarea::placeholder { color: #444; }
+  .cta-form-group input:focus, .cta-form-group select:focus, .cta-form-group textarea:focus { border-color: var(--blue); }
+  .cta-form-group select { color: #f5f2ee; }
+  .cta-form-group select option { background: #111; color: #f5f2ee; }
+  .cta-form-group textarea { resize: vertical; min-height: 90px; }
+  .cta-form-submit { display: inline-flex; align-items: center; gap: 12px; background: var(--blue); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 18px 44px; border: none; cursor: pointer; transition: transform 0.2s, background 0.2s; width: 100%; justify-content: center; margin-top: 6px; }
+  .cta-form-submit:hover { background: var(--white); transform: translateY(-2px); }
+  .cta-form-success { display: none; border: 1px solid var(--blue); padding: 40px 32px; text-align: center; max-width: 500px; margin: 0 auto; }
+  .cta-form-success h4 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 10px; }
+  .cta-form-success p { color: #888; font-size: 0.88rem; }
+  @media(max-width:540px){ .cta-form-row { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -377,10 +395,22 @@ footer { padding: 52px 48px 36px; border-top: 1px solid #161616; display: flex; 
     <span class="faint">Something</span>
     <strong>Big<span class="blue">.</span></strong>
   </h2>
-  <a href="mailto:hello@theleesmedia.com" class="cta-btn reveal d2">
-    Book a Discovery Call
-    <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </a>
+  <form class="cta-form reveal d2" id="tlm-form">
+    <div class="cta-form-row">
+      <div class="cta-form-group"><label for="tlm-name">Your Name</label><input type="text" id="tlm-name" name="name" placeholder="Alex Johnson" required /></div>
+      <div class="cta-form-group"><label for="tlm-email">Email</label><input type="email" id="tlm-email" name="email" placeholder="alex@company.com" required /></div>
+    </div>
+    <div class="cta-form-row">
+      <div class="cta-form-group"><label for="tlm-company">Company / Brand</label><input type="text" id="tlm-company" name="company" placeholder="Your Company" /></div>
+      <div class="cta-form-group"><label for="tlm-revenue">Monthly Revenue</label><select id="tlm-revenue" name="monthly_revenue"><option value="" disabled selected>Select range</option><option>Under $10k/mo</option><option>$10k – $50k/mo</option><option>$50k – $200k/mo</option><option>$200k – $500k/mo</option><option>$500k – $1M/mo</option><option>$1M+/mo</option></select></div>
+    </div>
+    <div class="cta-form-row">
+      <div class="cta-form-group" style="grid-column:1/-1"><label for="tlm-service">Service Interest</label><select id="tlm-service" name="service"><option value="" disabled selected>Select a service</option><option>Social Media Management</option><option>Influencer Marketing</option><option>Content Production &amp; UGC</option><option>Brand Strategy</option><option>Not sure yet</option></select></div>
+    </div>
+    <div class="cta-form-group"><label for="tlm-message">Tell us about your goals</label><textarea id="tlm-message" name="message" placeholder="What are you looking to achieve? Give us the big picture..." required></textarea></div>
+    <button type="submit" class="cta-form-submit">Book a Discovery Call <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+  </form>
+  <div class="cta-form-success" id="tlm-success"><h4>We'll Be In Touch.</h4><p>Thanks for reaching out. We'll get back to you within 24 hours to schedule your free discovery call.</p></div>
   <p class="cta-note reveal d3">Free 30-minute strategy call · No commitment · Real talk</p>
 </section>
 
@@ -419,6 +449,29 @@ footer { padding: 52px 48px 36px; border-top: 1px solid #161616; display: flex; 
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // ── Contact Form Submission ──
+  const tlmForm = document.getElementById('tlm-form');
+  if (tlmForm) {
+    tlmForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      const data = new FormData(this);
+      data.append('_subject', 'New Discovery Call Request – The Lees Media');
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/hello@theleesmedia.com', {
+          method: 'POST', headers: { 'Accept': 'application/json' }, body: data
+        });
+        const json = await res.json();
+        if (json.success === 'true' || json.success === true) {
+          this.style.display = 'none';
+          document.getElementById('tlm-success').style.display = 'block';
+        } else { btn.textContent = 'Try Again'; btn.disabled = false; }
+      } catch(err) { btn.textContent = 'Try Again'; btn.disabled = false; }
+    });
+  }
 </script>
 </body>
 </html>
