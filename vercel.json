@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/vault", "destination": "https://brain-os-ruby.vercel.app/", "permanent": false },
+    { "source": "/vault/:path*", "destination": "https://brain-os-ruby.vercel.app/:path*", "permanent": false }
+  ]
+}
